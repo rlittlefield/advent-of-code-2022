@@ -12,3 +12,10 @@ where P: AsRef<Path>, {
 }
 
 
+
+// this is like the same as above, but we are trying to do bytes strings not unicodes
+pub fn read_byte_lines<P>(filename: P) -> io::Result<io::Split<io::BufReader<File>>>
+where P: AsRef<Path>, {
+    let file = File::open(filename)?;
+    Ok(io::BufReader::new(file).split(b'\n'))
+}
